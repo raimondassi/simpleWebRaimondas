@@ -5,8 +5,9 @@ import org.hibernate.sql.Select;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.List;
+
 interface QuestionRepository extends JpaRepository<Question, Integer> {
-   // @Query(Select question from Questions);
-
-
+    @Query("SELECT q FROM Question q")
+    List<Question> findAllQueries();
 }

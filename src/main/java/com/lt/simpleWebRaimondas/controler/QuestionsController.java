@@ -13,24 +13,22 @@ import javax.persistence.Persistence;
 import java.util.List;
 
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
-
+//what is Rest or Restfull web services, here we have RestController
 
 @RestController
 public class QuestionsController {
-
-
     private QuestionService questionService;
+
 
     @Autowired
     public QuestionsController(QuestionService questionService) {
         this.questionService = questionService;
-
-        @RequestMapping(value = '/question', method = RequestMethod.GET)
-        @ResponseStatus(HttpStatus.OK)
-
-        public List<Question> getAllQuestions() {
-            return questionService.getAllQuestions();
-        }
-
-
     }
+
+
+    @RequestMapping(value = "/question", method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    public List<Question> getAllQuestions() {
+        return questionService.getAllQuestions();
+    }
+}
