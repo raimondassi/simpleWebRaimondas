@@ -7,19 +7,22 @@ import java.util.List;
  */
 public class QuizElementDTO {
     private String question;
-    private List<String> answers;
+    private List<AnswerDTO> answers;
 
-    public QuizElementDTO(String question, List<String> answers){
+    public QuizElementDTO(String question, List<AnswerDTO> answers){
         this.question=question;
         this.answers=answers;
-
     }
+
+
 
     public String getQuestion(){
         return question;
     }
 
-    public List<String> getAnswers(){
+    public List<AnswerDTO> getAnswers(){
         return answers;
     }
+
+
 }

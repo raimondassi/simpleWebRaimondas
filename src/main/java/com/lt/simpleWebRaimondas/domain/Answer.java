@@ -1,25 +1,31 @@
 package com.lt.simpleWebRaimondas.domain;
 
-import org.springframework.data.annotation.Id;
+
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
+
 
 @Entity
 @Table(name = "answers")
 public class Answer {
-    @Id
-    @Column(name = "id")
-    private int id;
-    @Column(name = "answer")
+@Id
+    private Integer id;
+    @Column(name = "ANSWER")
     private String answer;
-    @Column(name = "question_id")
+    @Column(name = "QUESTION_ID")
     private int questionId;
 
 
     public String getAnswer() {
         return answer;
+    }
+
+
+    public int getId() {
+        return id;
     }
 
 

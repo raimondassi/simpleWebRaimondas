@@ -2,18 +2,27 @@ package com.lt.simpleWebRaimondas.domain;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "questions")
 public class Question implements Serializable {
     @Id
-    @Column(name = "id")
+    @GeneratedValue (strategy = GenerationType.AUTO)
     private Integer id;
+
     @Column(name = "question")
     private String question;
     @Enumerated(EnumType.STRING)
     @Column(name = "type")
-    private AnswerType answerType;
+    private AnswerType type;
+
+    @OneToMany (mappedBy = "questionId")
+    private List<Answer> answers;
+
+    public List<Answer> getAnswers(){
+        return answers;
+    }
 
 
     public String getQuestion() {
@@ -22,6 +31,8 @@ public class Question implements Serializable {
 
 
     public AnswerType getType() {
-        return answerType;
+        return type;
     }
+
+
 }

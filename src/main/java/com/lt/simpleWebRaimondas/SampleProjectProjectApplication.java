@@ -15,12 +15,10 @@ import java.util.List;
 @SpringBootApplication
 public class SampleProjectProjectApplication {
 
-    private static Question question;
-    private static List<Answer> answer;
+
     public static void main(String[] args) {
 
         SpringApplication.run(SampleProjectProjectApplication.class, args);
-       // QuizElementDTO quizElementDTO=new QuizElementDTO(question.getQuestion(),answer.add() );
 
     }
 }
