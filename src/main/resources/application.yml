@@ -7,4 +7,6 @@ spring:
 
   jpa:
     database: MYSQL
-
+  mvc.view:
+    prefix: /WEB-INF/jsp/
+    suffix: .jsp

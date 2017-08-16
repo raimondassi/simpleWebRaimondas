@@ -33,6 +33,10 @@ public class Answer {
     }
 
 
+    public Answer() {
+    }
+
+
     public int getQuestionId() {
         return questionId;
     }

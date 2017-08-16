@@ -10,33 +10,64 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.servlet.ModelAndView;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
-//what is Rest or Restfull web services, here we have RestController
-
-@RestController
-public class QuestionsController {
+@Controller
+public class QuestionControllerJSP {
     private QuestionService questionService;
 
 
-    @Autowired
-    public QuestionsController(QuestionService questionService) {
+    public QuestionControllerJSP(QuestionService questionService) {
         this.questionService = questionService;
     }
 
 
-    @RequestMapping(value = "/question", method = RequestMethod.GET)
-    @ResponseStatus(HttpStatus.OK)
-    public List<Question> getAllQuestions() {
-        return questionService.getAllQuestions();
+    @RequestMapping(value = "/jsptest", method = RequestMethod.GET)
+    public String welcome(Map<String, Object> model) {
+        model.put("message", "Labas VCS");
+        return "welcome";
     }
+/*
+
+    @RequestMapping(value = "/quizjsp", method = RequestMethod.GET)
+
+
+    public String quizJSP(Map<String, Object> model) {
+
+        model.put("message", "Labas VCS");
+        return "quizJSP";
+    }
+
+*/
+    @RequestMapping(value = "/quizjsp", method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    public ModelAndView getQuizElements() {
+        List<QuizElementDTO> elements = new ArrayList<QuizElementDTO>();
+        for (Question question : questionService.getAllQuestions()) {
+            List<String> answerText = new ArrayList<String>();
+            for (Answer value : question.getAnswers()) {
+                answerText.add(value.getAnswer());
+            }
+            elements.add(new QuizElementDTO(question.getQuestion(), answerText));
+
+        }
+        ModelAndView modelAndView=new ModelAndView("quizjsp");
+        modelAndView.addObject( "elements", elements);
+        return modelAndView;
+    }
+
+
+
+/*
+
 
 
     @RequestMapping(value = "/quiz", method = RequestMethod.GET)
@@ -78,5 +109,5 @@ public class QuestionsController {
         questionService.saveQuestionsAndAnswersToDB(questionDTO.getText(), questionDTO.getAnswerType(), answerList);
         return ResponseEntity.ok(HttpStatus.OK);
     }
-
+    */
 }

@@ -46,5 +46,6 @@ public class Question implements Serializable {
     }
 
 
-
+    public Question() {
+    }
 }

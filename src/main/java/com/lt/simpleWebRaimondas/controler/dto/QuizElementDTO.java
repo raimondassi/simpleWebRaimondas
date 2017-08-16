@@ -7,9 +7,9 @@ import java.util.List;
  */
 public class QuizElementDTO {
     private String question;
-    private List<AnswerDTO> answers;
+    private List<String> answers;
 
-    public QuizElementDTO(String question, List<AnswerDTO> answers){
+    public QuizElementDTO(String question, List<String> answers){
         this.question=question;
         this.answers=answers;
     }
@@ -20,7 +20,7 @@ public class QuizElementDTO {
         return question;
     }
 
-    public List<AnswerDTO> getAnswers(){
+    public List<String> getAnswers(){
         return answers;
     }
 

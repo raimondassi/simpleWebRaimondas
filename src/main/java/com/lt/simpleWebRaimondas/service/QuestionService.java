@@ -1,5 +1,6 @@
 package com.lt.simpleWebRaimondas.service;
 
+import com.lt.simpleWebRaimondas.domain.Answer;
 import com.lt.simpleWebRaimondas.domain.AnswerType;
 import com.lt.simpleWebRaimondas.domain.Question;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,7 @@ public class QuestionService {
 
     public  Question saveQuestionsAndAnswersToDB(String questionText, AnswerType answerType, List<String> answer) {
         Question question = new Question(questionText, answerType);
+        //Answer answerResult=new Answer(answer);
         question = questionRepository.saveAndFlush(question);
         return question;
     }

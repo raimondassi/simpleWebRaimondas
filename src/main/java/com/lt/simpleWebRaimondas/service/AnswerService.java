@@ -23,8 +23,4 @@ public void createAnswersForQuestions(List<String> answers, int questionId ){
 }
 }
 
-//susikuriame 2 lentas vartotoja, ir Atsakymu lenta kurioje yra atsakymo id, vartotoja, questionValueId, input (kai
-// pasirinktas input tipas), t.y. rankele iraso
-//pasiskaityt apie DB OneToMany, OneToOne, ManyToMany, index, ProimaryKey, ForeignKey,
-//Html formas, formu tagus
-//http post, get
+
