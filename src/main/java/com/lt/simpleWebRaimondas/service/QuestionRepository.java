@@ -12,3 +12,4 @@ interface QuestionRepository extends JpaRepository<Question, Integer> {
 
     List<Question> findAllQueries();
 }
+//jsp pasiziureti

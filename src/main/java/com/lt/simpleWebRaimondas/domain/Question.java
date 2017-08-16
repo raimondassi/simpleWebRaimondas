@@ -35,4 +35,16 @@ public class Question implements Serializable {
     }
 
 
+    public Integer getId() {
+        return id;
+    }
+
+
+    public  Question(String question, AnswerType type) {
+        this.question = question;
+        this.type = type;
+    }
+
+
+
 }
