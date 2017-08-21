@@ -37,3 +37,5 @@ public class SampleProjectProjectApplication extends SpringBootServletInitialize
 //http post, get
 
 // jsp formos pasiziureti kaip isvesti atsakymus
+
+//jei be springo pabandyti naudoti servletus (servletas tai kaip nurodyti ardesus internetinius kur kreipris ir is kurio pathu pasiimti duomenis, ar kur siusti

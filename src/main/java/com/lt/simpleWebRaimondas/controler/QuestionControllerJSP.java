@@ -3,19 +3,23 @@ package com.lt.simpleWebRaimondas.controler;
 import com.lt.simpleWebRaimondas.controler.dto.AnswerDTO;
 import com.lt.simpleWebRaimondas.controler.dto.QuestionDTO;
 import com.lt.simpleWebRaimondas.controler.dto.QuizElementDTO;
+import com.lt.simpleWebRaimondas.controler.dto.UserDTO;
 import com.lt.simpleWebRaimondas.domain.Answer;
+import com.lt.simpleWebRaimondas.domain.AnswerType;
 import com.lt.simpleWebRaimondas.domain.Question;
+import com.lt.simpleWebRaimondas.domain.Submission;
 import com.lt.simpleWebRaimondas.service.QuestionService;
+import com.lt.simpleWebRaimondas.service.SubmissionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -23,10 +27,12 @@ import java.util.Map;
 @Controller
 public class QuestionControllerJSP {
     private QuestionService questionService;
+    private SubmissionService submissionService;
 
 
-    public QuestionControllerJSP(QuestionService questionService) {
+    public QuestionControllerJSP(QuestionService questionService, SubmissionService submissionService) {
         this.questionService = questionService;
+        this.submissionService = submissionService;
     }
 
 
@@ -35,18 +41,20 @@ public class QuestionControllerJSP {
         model.put("message", "Labas VCS");
         return "welcome";
     }
-/*
-
-    @RequestMapping(value = "/quizjsp", method = RequestMethod.GET)
 
 
-    public String quizJSP(Map<String, Object> model) {
+    /*
 
-        model.put("message", "Labas VCS");
-        return "quizJSP";
-    }
+        @RequestMapping(value = "/quizjsp", method = RequestMethod.GET)
 
-*/
+
+        public String quizJSP(Map<String, Object> model) {
+
+            model.put("message", "Labas VCS");
+            return "quizJSP";
+        }
+
+    */
     @RequestMapping(value = "/quizjsp", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public ModelAndView getQuizElements() {
@@ -57,11 +65,56 @@ public class QuestionControllerJSP {
                 answerText.add(value.getAnswer());
             }
             elements.add(new QuizElementDTO(question.getQuestion(), answerText));
-
         }
-        ModelAndView modelAndView=new ModelAndView("quizjsp");
-        modelAndView.addObject( "elements", elements);
+        ModelAndView modelAndView = new ModelAndView("quizjsp");
+        modelAndView.addObject("elements", elements);
+        UserDTO userDTO = new UserDTO();
+        userDTO.setName("Vardenis");
+        userDTO.setLastname("Pavardenis");
+        List<String> possibleGenders = new ArrayList<String>();
+        possibleGenders.add("Vyras");
+        possibleGenders.add("Morteris");
+        possibleGenders.add("Belytis");
+        userDTO.setPossibleGenders(possibleGenders);
+        modelAndView.addObject("user", userDTO);
         return modelAndView;
+    }
+
+
+    @PostMapping("/submitQuizAnswers")
+    public ModelAndView submitQuizAnswers(@ModelAttribute("user") UserDTO user,
+                                          BindingResult result, ModelMap model) {
+        submissionService.saveSubmissionToDB(new Submission(user.getName(), user.getLastname()));
+        return new ModelAndView("youAreWrittenToDB");
+    }
+
+
+
+    @RequestMapping(value = "/createQuestion", method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    public ModelAndView createQueetion() {
+        List<QuestionDTO> questions = new ArrayList<QuestionDTO>();
+
+        ModelAndView modelAndView = new ModelAndView("create_question");
+
+        QuestionDTO questionDTO = new QuestionDTO();
+        AnswerType[] answerType=AnswerType.values();
+        questionDTO.setText("");
+        questionDTO.setPosibleObjectTypes(answerType);
+
+        modelAndView.addObject("QuestionDTO", questionDTO);
+        List<String> possibleTypes = new ArrayList<String>();
+        possibleTypes.add(answerType.toString());
+        modelAndView.addObject("answerTypes", possibleTypes);
+        return modelAndView;
+    }
+
+
+    @PostMapping("/submitQuestion")
+    public ModelAndView submitQuestion(@ModelAttribute("question") QuestionDTO questionDTO,
+                                          BindingResult result, ModelMap model) {
+        questionService.saveQuestionToDB(new Question(questionDTO.getText(), questionDTO.getAnswerType()));
+        return new ModelAndView("yourQuestionIsWrittenToDB");
     }
 
 

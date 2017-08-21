@@ -4,7 +4,7 @@
 <html lang="en">
 <body>
 
-<h2>Message: ${message}</h2>
+<h2>You are added to DB</h2>
 </body>
 
 </html>
