@@ -39,4 +39,10 @@ public class QuestionService {
         question = questionRepository.saveAndFlush(question);
         return question;
     }
+
+    public void createNewQuestion( String questionText, AnswerType answerType, List<String> answer){
+        Question question=new Question(questionText, answerType);
+        questionRepository.saveAndFlush(question);
+
+    }
 }
