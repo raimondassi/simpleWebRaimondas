@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
-//what is Rest or Restfull web services, here we have RestController
+
 
 @RestController
 public class QuestionsController {

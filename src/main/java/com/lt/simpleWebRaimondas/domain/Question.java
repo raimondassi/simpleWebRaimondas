@@ -8,19 +8,18 @@ import java.util.List;
 @Table(name = "questions")
 public class Question implements Serializable {
     @Id
-    @GeneratedValue (strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-
     @Column(name = "question")
     private String question;
     @Enumerated(EnumType.STRING)
     @Column(name = "type")
     private AnswerType type;
-
-    @OneToMany (mappedBy = "questionId")
+    @OneToMany(mappedBy = "questionId")
     private List<Answer> answers;
 
-    public List<Answer> getAnswers(){
+
+    public List<Answer> getAnswers() {
         return answers;
     }
 
@@ -40,7 +39,7 @@ public class Question implements Serializable {
     }
 
 
-    public  Question(String question, AnswerType type) {
+    public Question(String question, AnswerType type) {
         this.question = question;
         this.type = type;
     }

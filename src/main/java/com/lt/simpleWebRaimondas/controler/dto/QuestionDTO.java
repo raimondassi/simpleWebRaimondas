@@ -12,7 +12,7 @@ public class QuestionDTO {
     private List<AnswerDTO> answerDTO;
 
 
-        public String getText() {
+    public String getText() {
         return text;
     }
 
