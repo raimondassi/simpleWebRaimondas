@@ -8,16 +8,24 @@ public class QuestionDTO {
     private String text;
     private AnswerType answerType;
     private List<AnswerDTO> answerDTO;
-    private AnswerType[] posibleAnswerTypes;
+
+    private AnswerType[] possibleAnswerTypes;
 
 
-    public AnswerType[] getPosibleAnswerTypes() {
-        return posibleAnswerTypes;
+    public AnswerType[] getPossibleAnswerTypes() {
+        return possibleAnswerTypes;
     }
 
 
-    public void setPosibleAnswerTypes(AnswerType[] posibleAnswerTypes) {
-        this.posibleAnswerTypes = posibleAnswerTypes;
+
+
+    public AnswerType[] getPosibleAnswerTypes() {
+        return possibleAnswerTypes;
+    }
+
+
+    public void setPossibleAnswerTypes(AnswerType[] possibleAnswerTypes) {
+        this.possibleAnswerTypes = possibleAnswerTypes;
     }
 
 
@@ -60,4 +68,50 @@ public class QuestionDTO {
                 '}';
     }
     //pasipildyti dar atsakymus galimus
+
+    public static final class QuestioDTOBuilder {
+        private String text;
+        private AnswerType answerType;
+        AnswerType[] possibleAnswerTypes;
+
+
+        public QuestioDTOBuilder() {
+        }
+
+
+        public static QuestioDTOBuilder questioDTOBuilder() {
+            return new QuestioDTOBuilder();
+        }
+
+
+        public QuestioDTOBuilder withText(String text) {
+            this.text = text;
+            return this;
+        }
+
+
+        public QuestioDTOBuilder withAnswerType(AnswerType answerType) {
+            this.answerType = answerType;
+            return this;
+        }
+
+
+        public QuestioDTOBuilder withPossibleAnswerTypes(AnswerType[] possibleAnswerTypes) {
+            this.possibleAnswerTypes = possibleAnswerTypes;
+            return this;
+        }
+
+
+        public QuestionDTO build() {
+            QuestionDTO questionDTO = new QuestionDTO();
+            questionDTO.setText(text);
+            questionDTO.setAnswerType(answerType);
+            questionDTO.setPossibleAnswerTypes(possibleAnswerTypes);
+            return questionDTO;
+        }
+    }
 }
+
+
+
+

@@ -77,11 +77,17 @@ public class QuestionControllerJSP {
     @ResponseStatus(HttpStatus.OK)
     public ModelAndView createQueetion() {
         ModelAndView modelAndView = new ModelAndView("createQuestion");
-        QuestionDTO questionDTO = new QuestionDTO();
-        questionDTO.setText("");
-        AnswerType[] possibleAnswerType = AnswerType.values();
-        questionDTO.setPosibleAnswerTypes(possibleAnswerType);
-        modelAndView.addObject("question", questionDTO);
+       // QuestionDTO questionDTO = new QuestionDTO();
+
+        //questionDTO.setText("");
+        AnswerType[] possibleAnswerTypes = AnswerType.values();
+        //questionDTO.setPosibleAnswerTypes(possibleAnswerType);
+       // modelAndView.addObject("question", questionDTO);
+        modelAndView.addObject("question",
+                new QuestionDTO.QuestioDTOBuilder()
+                .withText("")
+                .withPossibleAnswerTypes(possibleAnswerTypes)
+                .build());
         return modelAndView;
     }
 

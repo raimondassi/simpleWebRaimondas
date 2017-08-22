@@ -12,3 +12,4 @@ spring:
   mvc.view:
     prefix: /WEB-INF/jsp/
     suffix: .jsp
+    mvc: resources mapping="/resources/**" location="C:/DEVELOPER/simpleWebRaimondas/src/main/resources/"
