@@ -1,8 +1,6 @@
 package com.lt.simpleWebRaimondas.controler.dto;
 
-import com.lt.simpleWebRaimondas.domain.Answer;
 import com.lt.simpleWebRaimondas.domain.AnswerType;
-import com.lt.simpleWebRaimondas.domain.Question;
 
 import java.util.List;
 
@@ -10,16 +8,16 @@ public class QuestionDTO {
     private String text;
     private AnswerType answerType;
     private List<AnswerDTO> answerDTO;
-    private AnswerType[] posibleObjectTypes;
+    private AnswerType[] posibleAnswerTypes;
 
 
-    public AnswerType[] getPosibleObjectTypes() {
-        return posibleObjectTypes;
+    public AnswerType[] getPosibleAnswerTypes() {
+        return posibleAnswerTypes;
     }
 
 
-    public void setPosibleObjectTypes(AnswerType[] posibleObjectTypes) {
-        this.posibleObjectTypes = posibleObjectTypes;
+    public void setPosibleAnswerTypes(AnswerType[] posibleAnswerTypes) {
+        this.posibleAnswerTypes = posibleAnswerTypes;
     }
 
 

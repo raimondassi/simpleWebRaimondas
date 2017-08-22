@@ -8,6 +8,7 @@ import java.util.List;
 @Table(name = "questions")
 public class Question implements Serializable {
     @Id
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     @Column(name = "question")

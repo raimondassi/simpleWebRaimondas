@@ -3,7 +3,7 @@ package com.lt.simpleWebRaimondas.domain;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "SUBMISSION")
+@Table(name = "submission")
 
 public class Submission {
 

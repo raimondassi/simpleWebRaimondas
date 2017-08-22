@@ -1,6 +1,5 @@
 package com.lt.simpleWebRaimondas.controler;
 
-import com.lt.simpleWebRaimondas.controler.dto.AnswerDTO;
 import com.lt.simpleWebRaimondas.controler.dto.QuestionDTO;
 import com.lt.simpleWebRaimondas.controler.dto.QuizElementDTO;
 import com.lt.simpleWebRaimondas.controler.dto.UserDTO;
@@ -10,16 +9,13 @@ import com.lt.simpleWebRaimondas.domain.Question;
 import com.lt.simpleWebRaimondas.domain.Submission;
 import com.lt.simpleWebRaimondas.service.QuestionService;
 import com.lt.simpleWebRaimondas.service.SubmissionService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -43,18 +39,6 @@ public class QuestionControllerJSP {
     }
 
 
-    /*
-
-        @RequestMapping(value = "/quizjsp", method = RequestMethod.GET)
-
-
-        public String quizJSP(Map<String, Object> model) {
-
-            model.put("message", "Labas VCS");
-            return "quizJSP";
-        }
-
-    */
     @RequestMapping(value = "/quizjsp", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public ModelAndView getQuizElements() {
@@ -89,78 +73,24 @@ public class QuestionControllerJSP {
     }
 
 
-
     @RequestMapping(value = "/createQuestion", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public ModelAndView createQueetion() {
-        List<QuestionDTO> questions = new ArrayList<QuestionDTO>();
-
-        ModelAndView modelAndView = new ModelAndView("create_question");
-
+        ModelAndView modelAndView = new ModelAndView("createQuestion");
         QuestionDTO questionDTO = new QuestionDTO();
-        AnswerType[] answerType=AnswerType.values();
         questionDTO.setText("");
-        questionDTO.setPosibleObjectTypes(answerType);
-
-        modelAndView.addObject("QuestionDTO", questionDTO);
-        List<String> possibleTypes = new ArrayList<String>();
-        possibleTypes.add(answerType.toString());
-        modelAndView.addObject("answerTypes", possibleTypes);
+        AnswerType[] possibleAnswerType = AnswerType.values();
+        questionDTO.setPosibleAnswerTypes(possibleAnswerType);
+        modelAndView.addObject("question", questionDTO);
         return modelAndView;
     }
 
 
     @PostMapping("/submitQuestion")
     public ModelAndView submitQuestion(@ModelAttribute("question") QuestionDTO questionDTO,
-                                          BindingResult result, ModelMap model) {
+                                       BindingResult result, ModelMap model) {
+
         questionService.saveQuestionToDB(new Question(questionDTO.getText(), questionDTO.getAnswerType()));
         return new ModelAndView("yourQuestionIsWrittenToDB");
     }
-
-
-
-/*
-
-
-
-    @RequestMapping(value = "/quiz", method = RequestMethod.GET)
-    @ResponseStatus(HttpStatus.OK)
-    public List<QuizElementDTO> getQuizElements() {
-        List<QuizElementDTO> elements = new ArrayList<QuizElementDTO>();
-        for (Question question : questionService.getAllQuestions()) {
-            List<String> answerText = new ArrayList<String>();
-            for (Answer value : question.getAnswers()) {
-                answerText.add(value.getAnswer());
-            }
-            elements.add(new QuizElementDTO(question.getQuestion(), answerText));
-        }
-        return elements;
-    }
-
-
-
-    //write question to db
-    @RequestMapping(value = "/question", method = RequestMethod.POST)
-    @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<?> createQuestion(@RequestBody QuestionDTO questionDTO) {
-        Question question = new Question(questionDTO.getText(), questionDTO.getAnswerType());
-        questionService.saveQuestionToDB(question);
-        return ResponseEntity.ok(HttpStatus.OK);
-    }
-
-
-    ;
-
-
-    @RequestMapping(value = "/answers", method = RequestMethod.POST)
-    @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<?> createQuestionWithAnswers(@RequestBody QuestionDTO questionDTO) {
-        List<String> answerList = new ArrayList<String>();
-        for (AnswerDTO answerDTO : questionDTO.getAnswerDTO()) {
-            answerList.add(answerDTO.getAnswer());
-        }
-        questionService.saveQuestionsAndAnswersToDB(questionDTO.getText(), questionDTO.getAnswerType(), answerList);
-        return ResponseEntity.ok(HttpStatus.OK);
-    }
-    */
 }

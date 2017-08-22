@@ -43,14 +43,17 @@
                         <option value="${gender}">${possibleGenders}</option>
                     </c:forEach>
                 </select>
-            <td>
+            </td>
         </tr>
         <tr>
             <td><input type="submit" value="Pateikti"/></td>
         </tr>
     </table>
+        </div>
+  
 
 </form:form>
+      </div>
 </body>
 
 <body>
@@ -66,8 +69,8 @@
     </tr>
 </c:forEach>
 
-</div>
-</div>
+
+
 
 
 </body>
